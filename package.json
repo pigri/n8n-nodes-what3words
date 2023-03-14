@@ -1,19 +1,21 @@
 {
-  "name": "n8n-nodes-<...>",
+  "name": "n8n-nodes-what3words",
   "version": "0.1.0",
-  "description": "",
+  "description": "what3words is a geocoding system that assigns a unique combination of three words to each 3-meter square area on the Earth's surface. It aims to provide a more human-friendly, easy-to-remember, and accurate way of sharing locations, especially in areas without clear addresses or where traditional navigation systems may be less effective",
   "keywords": [
-    "n8n-community-node-package"
+    "n8n-community-node-package",
+    "what3words",
+    "n8n"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://david.papp.ai",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "David Papp",
+    "email": "david+oss@papp.ai"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+    "url": "https://github.com/pigri/n8n-nodes-what3words.git"
   },
   "main": "index.js",
   "scripts": {
@@ -30,16 +32,13 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js"
+      "dist/credentials/What3wordsApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/What3words/What3words.node.js"
     ]
   },
   "devDependencies": {
-    "@types/express": "^4.17.6",
     "@types/request-promise-native": "~1.0.15",
     "@typescript-eslint/parser": "~5.45",
     "eslint-plugin-n8n-nodes-base": "^1.11.0",
