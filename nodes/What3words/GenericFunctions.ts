@@ -19,12 +19,8 @@ export async function what3wordsApiRequest(
 	qs: IDataObject = {},
 	option: IDataObject = {},
 ): Promise<any> {
-	const credentials = (await this.getCredentials('what3wordsApi')) as IDataObject;
 
 	let options: OptionsWithUri = {
-		headers: {
-			'X-Api-Key': `${credentials.apiKey}`,
-		},
 		method,
 		qs,
 		body,
@@ -47,7 +43,7 @@ export async function what3wordsApiRequest(
 		}
 		//@ts-ignore
 		console.log(options);
-		return await this.helpers.request.call(this, options);
+		return await this.helpers.requestWithAuthentication.call(this, 'what3wordsApi', options);
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error as JsonObject);
 	}
