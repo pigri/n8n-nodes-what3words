@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-what3words",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "what3words is a geocoding system that assigns a unique combination of three words to each 3-meter square area on the Earth's surface. It aims to provide a more human-friendly, easy-to-remember, and accurate way of sharing locations, especially in areas without clear addresses or where traditional navigation systems may be less effective",
   "keywords": [
     "n8n-community-node-package",

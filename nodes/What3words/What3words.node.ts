@@ -4,6 +4,8 @@ import type {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	ILoadOptionsFunctions,
+	INodePropertyOptions,
 } from 'n8n-workflow';
 
 import { what3wordsApiRequest } from './GenericFunctions';
@@ -51,6 +53,33 @@ export class What3words implements INodeType {
 		],
 	};
 
+	methods = {
+		loadOptions: {
+			async getLanguages(this: ILoadOptionsFunctions) {
+				const returnData: INodePropertyOptions[] = [];
+				const result = await what3wordsApiRequest.call(this, 'GET', '/available-languages');
+				for (const language of result.languages) {
+					returnData.push({
+						name: language.name,
+						value: language.code,
+					});
+				}
+
+				returnData.sort((a, b) => {
+					if (a.name < b.name) {
+						return -1;
+					}
+					if (a.name > b.name) {
+						return 1;
+					}
+					return 0;
+				});
+
+				return returnData;
+			},
+		},
+	};
+
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		return new Promise(async (resolve, reject) => {
 			const items = this.getInputData();
@@ -61,11 +90,12 @@ export class What3words implements INodeType {
 				try {
 					if (resource === 'convert') {
 						if (operation === 'conv23wa') {
+							const language = this.getNodeParameter('language', itemIndex) as string;
 							const cordinates = this.getNodeParameter('cordinates', itemIndex) as string;
 							const responseData = await what3wordsApiRequest.call(
 								this,
 								'GET',
-								`/convert-to-3wa?coordinates=${cordinates}`,
+								`/convert-to-3wa?coordinates=${cordinates}&language=${language}`,
 							);
 							const result = this.helpers.returnJsonArray(responseData as unknown as IDataObject[]);
 							returnData.push(...result);
@@ -75,7 +105,7 @@ export class What3words implements INodeType {
 							const responseData = await what3wordsApiRequest.call(
 								this,
 								'GET',
-								`/convert-to-coordinates?words=${words}`,
+								`/convert-to-coordinates?words=${encodeURIComponent(words)}`,
 							);
 							const result = this.helpers.returnJsonArray(responseData as unknown as IDataObject[]);
 							returnData.push(...result);

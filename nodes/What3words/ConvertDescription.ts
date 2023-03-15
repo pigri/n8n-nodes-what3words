@@ -19,7 +19,7 @@ export const ConvertOperations: INodeProperties[] = [
 				action: 'Convert from coordinate to 3 words',
 			},
 			{
-				name: '3 Word to Coordinate',
+				name: '3 Words to Coordinate',
 				value: '3wa2conv',
 				description: 'Convert from 3 words to coordinate',
 				action: 'Convert from 3 words to coordinate',
@@ -46,13 +46,14 @@ export const ConvertFields: INodeProperties[] = [
 			},
 		},
 		default: '',
-		description: 'The coordinate to convert to 3 word address',
+		description: 'The coordinate to convert to 3 words address',
 	},
 	{
 		displayName: 'Words',
 		name: 'words',
 		required: true,
 		type: 'string',
+		default: '',
 		placeholder: 'index.home.raft',
 		displayOptions: {
 			show: {
@@ -60,7 +61,24 @@ export const ConvertFields: INodeProperties[] = [
 				resource: ['convert'],
 			},
 		},
+		description: 'The 3 words address to convert to coordinate',
+	},
+	{
+		displayName: 'Language Name or ID',
+		name: 'language',
+		type: 'options',
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+		typeOptions: {
+			loadOptionsMethod: 'getLanguages',
+		},
 		default: '',
-		description: 'The 3 word address to convert to coordinate',
+		required: true,
+		displayOptions: {
+			show: {
+				operation: ['conv23wa'],
+				resource: ['convert'],
+			},
+		},
 	},
 ];
